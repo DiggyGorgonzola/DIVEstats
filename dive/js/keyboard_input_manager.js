@@ -58,6 +58,7 @@ KeyboardInputManager.prototype.listen = function () {
 
   var retry = document.getElementsByClassName("retry-button")[0];
   retry.addEventListener("click", this.restart.bind(this));
+  retry.addEventListener("touchstart", this.restart.bind(this));
 
   // Listen to swipe events
   var touchStartClientX, touchStartClientY;

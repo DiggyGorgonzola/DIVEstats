@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             '--col3',
             picker2.value
         );
+        window.game.actuator.chart.data.datasets[0].backgroundColor = picker2.value;
+        window.game.actuator.chart.update();
     });
     picker3.addEventListener('input', () => {
         document.documentElement.style.setProperty(
