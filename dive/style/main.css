@@ -1,9 +1,15 @@
 @import url(fonts/clear-sans.css);
+:root {
+    --col1: #31293a;
+
+  --col3: #77609e;
+  --col4: #cbb9ff;
+}
 html, body {
   margin: 0;
   padding: 0;
-  background: #faf8ef;
-  color: #776e65;
+  background: var(--col1);
+  color: var(--col3);
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px; }
 
@@ -54,7 +60,16 @@ h1.title {
   100% {
     top: -50px;
     opacity: 0; } }
-
+.color-picker {
+  position:absolute;
+  display:block;
+  padding:5px;
+  border-radius:5px;
+  left:20px;
+  top:50px;
+  color:var(--col1);
+  background-color:var(--col3);
+}
 .scores-container {
   float: right;
   text-align: right; 
@@ -75,7 +90,7 @@ h1.title {
 }
 
 .score-container, .best-container, .currently-unlocked {
-  background: #bbada0;
+  background: var(--col3);
   font-size: 25px;
   font-weight: bold;
   border-radius: 6px;
@@ -130,7 +145,7 @@ p {
   line-height: 1.65; }
 
 a {
-  color: #776e65;
+  color: var(--col3);
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer; }
@@ -168,7 +183,19 @@ hr {
 
   100% {
     opacity: 1; } }
-
+.graph-container {
+  margin-top: 15px;
+  position: relative;
+  padding: 15px;
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  background-color: var(--col3);
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
 .game-container {
   margin-top: 15px;
   position: relative;
@@ -177,7 +204,7 @@ hr {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  background: #bbada0;
+  background: var(--col3);
   border-radius: 6px;
   width: 500px;
   height: 500px;
@@ -272,7 +299,7 @@ hr {
   margin-right: 15px;
   float: left;
   border-radius: 3px;
-  background: rgba(238, 228, 218, 0.35); }
+  background: var(--col4); }
   .grid-cell:last-child {
     margin-right: 0; }
 
@@ -295,11 +322,11 @@ hr {
   .tile.tile-position-1-3 {
     position: absolute;
     left: 0px;
-    top: 243px; }
+    top: 242px; }
   .tile.tile-position-1-4 {
     position: absolute;
     left: 0px;
-    top: 364px; }
+    top: 363px; }
   .tile.tile-position-2-1 {
     position: absolute;
     left: 121px;
@@ -311,43 +338,43 @@ hr {
   .tile.tile-position-2-3 {
     position: absolute;
     left: 121px;
-    top: 243px; }
+    top: 242px; }
   .tile.tile-position-2-4 {
     position: absolute;
     left: 121px;
-    top: 364px; }
+    top: 363px; }
   .tile.tile-position-3-1 {
     position: absolute;
-    left: 243px;
+    left: 242px;
     top: 0px; }
   .tile.tile-position-3-2 {
     position: absolute;
-    left: 243px;
+    left: 242px;
     top: 121px; }
   .tile.tile-position-3-3 {
     position: absolute;
-    left: 243px;
-    top: 243px; }
+    left: 242px;
+    top: 242px; }
   .tile.tile-position-3-4 {
     position: absolute;
-    left: 243px;
-    top: 364px; }
+    left: 242px;
+    top: 363px; }
   .tile.tile-position-4-1 {
     position: absolute;
-    left: 364px;
+    left: 363px;
     top: 0px; }
   .tile.tile-position-4-2 {
     position: absolute;
-    left: 364px;
+    left: 363px;
     top: 121px; }
   .tile.tile-position-4-3 {
     position: absolute;
-    left: 364px;
-    top: 243px; }
+    left: 363px;
+    top: 242px; }
   .tile.tile-position-4-4 {
     position: absolute;
-    left: 364px;
-    top: 364px; }
+    left: 363px;
+    top: 363px; }
 
 .tilenumber {
   width: 106px;
@@ -706,9 +733,9 @@ hr {
 .tile.minitile .tilenumber.tile-small-3 {
   font-size: 22px !important; }
 .tile.minitile .tilenumber.tile-small-4 {
-  font-size: 17.6px !important; }
+  font-size: 17.5px !important; }
 .tile.minitile .tilenumber.tile-small-5 {
-  font-size: 21px !important; }
+  font-size: 12px !important; }
 .tile.minitile .tilenumber.tile-small-6 {
   font-size: 10px !important; }
 
@@ -844,7 +871,7 @@ hr {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
-    background: #bbada0;
+    background: var(--col3);
     border-radius: 6px;
     width: 280px;
     height: 280px;
@@ -1001,19 +1028,19 @@ hr {
       top: 203px; }
     .tile.tile-position-4-1 {
       position: absolute;
-      left: 203px;
+      left: 202px;
       top: 0px; }
     .tile.tile-position-4-2 {
       position: absolute;
-      left: 203px;
+      left: 202px;
       top: 68px; }
     .tile.tile-position-4-3 {
       position: absolute;
-      left: 203px;
+      left: 202px;
       top: 135px; }
     .tile.tile-position-4-4 {
       position: absolute;
-      left: 203px;
+      left: 202px;
       top: 203px; }
 
   .game-container {
@@ -1128,7 +1155,7 @@ hr {
     -moz-transition-property: top, opacity; }
     .btc-donate .address:after {
       position: absolute;
-      border-top: 10px solid #bbada0;
+      border-top: 10px solid var(--col3);
       border-right: 7px solid transparent;
       border-left: 7px solid transparent;
       content: "";
@@ -1136,7 +1163,7 @@ hr {
       left: 50%;
       margin-left: -7px; }
     .btc-donate .address code {
-      background-color: #bbada0;
+      background-color: var(--col3);
       padding: 10px 15px;
       width: 100%;
       border-radius: 3px;

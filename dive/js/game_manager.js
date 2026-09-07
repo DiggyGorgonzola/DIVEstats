@@ -239,6 +239,8 @@ GameManager.prototype.move = function (direction) {
                       tilesSeen: this.tilesSeen };
       else
         this.over = {};
+      this.actuator.addPoint({x:this.actuator.score_points.length,y:this.score});
+      console.log(this.actuator.score_points);
     }
 
     this.actuate();

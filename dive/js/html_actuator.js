@@ -5,14 +5,47 @@ function HTMLActuator() {
   this.messageContainer = document.querySelector(".game-message");
   this.announcer        = document.querySelector(".announcer");
   this.currentlyUnlocked= document.querySelector(".currently-unlocked");
-
+  this.ScoreGraph       = document.querySelector(".graph");
   this.score = 0;
-  
+  this.score_points = JSON.parse(
+    localStorage.getItem('chartData')
+) || [];
+  this.colors = []
+
+  this.alltilesseen = []
   this.overlayPrimes = [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 
     53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 
     131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
     199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277,
     281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367];
+  const ctx = document.querySelector(".graph");
+  const backgroundColorPlugin = {
+    id: 'backgroundColor',
+
+    beforeDraw: (chart) => {
+        const { ctx, width, height } = chart;
+
+        ctx.save();
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+    }
+};
+  this.chart = new Chart(ctx, {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'Points',
+      data: this.score_points,
+      backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--col3').trim(),
+      pointRadius: 7
+    }]
+  },
+  plugins: [
+    backgroundColorPlugin
+  ]
+});
+
 }
 
 HTMLActuator.prototype.actuate = function (grid, metadata) {
@@ -196,9 +229,9 @@ HTMLActuator.prototype.message = function (game_over_data) {
   this.clearContainer(this.announcer);
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
-  
   if ("tilesSeen" in game_over_data) {
     var seen = game_over_data.tilesSeen;
+    this.alltilesseen.add(seen);
     seen.sort(function (a,b){return a-b});
     for (var i = seen.length - 2; i >= 0; i--)
       if (seen[i] == seen[i+1])
@@ -240,3 +273,14 @@ HTMLActuator.prototype.clearCurrentlyUnlocked = function () {
   this.currentlyUnlocked.textContent = "";
   this.clearContainer(this.currentlyUnlocked);
 };
+HTMLActuator.prototype.addPoint = function (point) {
+  this.score_points.push(point);
+  localStorage.setItem("chartData", JSON.stringify(this.score_points));
+  console.log(this.score_points)
+  this.chart.data.datasets[0].data.push(point);
+  this.chart.update();
+}
+HTMLActuator.prototype.refreshChart = function () {
+  this.chart.data.datasets[0].data = this.score_points;
+  this.chart.update();
+}
