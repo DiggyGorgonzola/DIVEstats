@@ -113,21 +113,25 @@ h1.title {
       line-height: 42px;
       margin-top: 10px;
 }
+.fancy-button:active {
+  opacity:.5;
+  transform:translateY(1px)
+}
 .fancy-button.hidden {
   display:none;
 }
 
 .currently-unlocked {
   display: block; 
-  height: auto;
   line-height: 30px;
-  padding: 25px 0px 15px;
+  height: auto;
+  padding: 25px 0 0 0;
 }
 .currently-unlocked.hidden { display: none; }
 .currently-unlocked.all-seeds-seen {
   line-height: 30px;
   height: auto;
-  padding: 25px 0px 15px;
+  padding: 25px 0 0 0;
 }
 
 .score-container, .best-container, .currently-unlocked {
@@ -309,7 +313,8 @@ hr {
       transform: translateZ(300px); }
       .game-container .announcer .announcement {
         position: relative;
-        color: rgba(59, 55, 50, 0.9);
+        color: color-mix(in srgb, var(--col4) 10%, white);
+        opacity: .9;
         font-size: 48px;
         font-weight: bold;
         text-align: center;

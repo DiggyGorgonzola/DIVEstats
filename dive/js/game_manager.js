@@ -99,11 +99,6 @@ GameManager.prototype.moveTile = function (tile, cell) {
 
 // Move tiles on the grid in the specified direction
 GameManager.prototype.move = function (direction) {
-  if (!awa) {
-  startTime = performance.now();
-  Timer();
-  awa = true; 
-  }
   // 0: up, 1: right, 2:down, 3: left
   var self = this;
 
@@ -180,6 +175,11 @@ GameManager.prototype.move = function (direction) {
   }
 
   if (moved) {
+    if (!awa) {
+    startTime = performance.now();
+    Timer();
+    awa = true; 
+    }
     if ((self.gameMode & 1) && newPrimes.length) {
       // in mode 1, score for unlocking
       if ((self.gameMode & 3) == 1) {

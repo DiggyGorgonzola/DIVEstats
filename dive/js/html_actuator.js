@@ -43,9 +43,9 @@ function HTMLActuator() {
     datasets: [{
       label: 'Points',
       data: this.score_points,
-      backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--col3').trim(),
+      backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--col1').trim(),
       borderColor: getComputedStyle(document.documentElement).getPropertyValue('--col1').trim(),
-      pointRadius: 7,
+      pointRadius: 4,
       tension: .4,
       borderWidth: 4,
     }]
@@ -63,6 +63,7 @@ function HTMLActuator() {
             },
         },
         y: {
+            type:"logarithmic",
             beginAtZero: true
         }
     }

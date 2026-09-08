@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.setProperty("--col3", JSON.parse(localStorage.getItem("col2")) || currentColor2)
     document.documentElement.style.setProperty("--col4", JSON.parse(localStorage.getItem("col3")) || currentColor3)
     game.actuator.chart.data.datasets[0].borderColor = picker1.value;
-    game.actuator.chart.data.datasets[0].backgroundColor = picker2.value;
+    game.actuator.chart.data.datasets[0].backgroundColor = picker1.value;
     game.actuator.chart.update();
     picker1.addEventListener('input', () => {
         document.documentElement.style.setProperty(
@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             picker1.value
         );
         window.game.actuator.chart.data.datasets[0].borderColor = picker1.value;
+        window.game.actuator.chart.update();
+        window.game.actuator.chart.data.datasets[0].backgroundColor = picker1.value;
         window.game.actuator.chart.update();
         localStorage.setItem("col1",JSON.stringify(picker1.value))
     });
