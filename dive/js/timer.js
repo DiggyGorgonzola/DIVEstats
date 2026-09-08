@@ -8,6 +8,7 @@ var awa = false;
 var startTime = 0;
 var animationFrame
 function stopTimer() {
+    awa=false;
     cancelAnimationFrame(animationFrame);
 }
 function Timer() {
