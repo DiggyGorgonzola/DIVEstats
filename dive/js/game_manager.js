@@ -22,6 +22,7 @@ GameManager.prototype.restart = function () {
 GameManager.prototype.setup = function () {
   stopTimer();
   resetTimer()
+  this.actuator.copyButton.style.display = "none";
   this.grid         = new Grid(this.size);
 
   var select = document.gameModeForm.gameModeSelect;
