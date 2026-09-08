@@ -120,14 +120,14 @@ h1.title {
 .currently-unlocked {
   display: block; 
   height: auto;
-  line-height: 64.5px;
+  line-height: 30px;
   padding: 25px 0px 15px;
 }
 .currently-unlocked.hidden { display: none; }
 .currently-unlocked.all-seeds-seen {
   line-height: 30px;
   height: auto;
-  padding: 25px 0 0 0;
+  padding: 25px 0px 15px;
 }
 
 .score-container, .best-container, .currently-unlocked {
