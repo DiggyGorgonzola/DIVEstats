@@ -7,6 +7,7 @@ function HTMLActuator() {
   this.currentlyUnlocked= document.querySelector(".currently-unlocked");
   this.seedQuest        = document.querySelector(".seed-quest");
   this.ScoreGraph       = document.querySelector(".graph");
+  this.copyButton       = document.getElementById("copybutton");
   this.score = 0;
   this.score_points = JSON.parse(
     localStorage.getItem('chartData')
@@ -273,6 +274,7 @@ HTMLActuator.prototype.message = function (game_over_data) {
     }
     this.currentlyUnlocked.classList.add("all-seeds-seen");
   }
+  this.copyButton.style.display = "block";
 };
 
 HTMLActuator.prototype.clearMessage = function () {
@@ -295,7 +297,6 @@ HTMLActuator.prototype.updateCurrentlyUnlocked = function (list) {
 HTMLActuator.prototype.updateSeedQuest = function (list) {
   var self = this;
   list.forEach(function (value) {
-    console.log("HAI!");
     if (!self.seedquest.some(quest => quest.value === value)) {
       self.seedquest.push({value: value,date: new Date()})
     }

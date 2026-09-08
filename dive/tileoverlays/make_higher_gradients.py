@@ -1,3 +1,4 @@
+
 from PIL import Image
 import math
 
@@ -24,6 +25,8 @@ def wavy(colour, direction, frequency, attenuation, has_sevens, power_in_residue
       rix, riy = cd*x + sd*y, -sd*x + cd*y
 
       if (supercolour != None):
+        if (superfrequency == None):
+          superfrequency = 0
         superband_position = (riy * superfrequency) % 1
         long_stripe = (supersupercolour != None) or superhas_sevens
         in_stripe = (superband_position < 1/6.0 or superband_position > 5/6.0) or \
@@ -91,9 +94,9 @@ def wavy(colour, direction, frequency, attenuation, has_sevens, power_in_residue
         alpha_data.append(0)
 
   im = Image.new("RGBA", (image_size, image_size))
-  im.putdata(colour_data)
+  im.putdata([(int(a[0]),int(a[1]),int(a[2])) for a in colour_data])
   mask = Image.new("L", (image_size, image_size))
-  mask.putdata(alpha_data)
+  mask.putdata([int(a) for a in alpha_data])
   im.putalpha(mask)
   return im
 
@@ -102,7 +105,7 @@ def base_colour(m):
   for i in range(4):
     q = ([2, 3, 5, 7])[i]
     while m % q == 0:
-      m /= q
+      m //= q
       small_factor_counts[i] += 1
   colour = [levels[i][min(small_factor_counts[i], len(levels[i])-1)] for i in range(3)]
   mmax = max(colour)
@@ -111,7 +114,6 @@ def base_colour(m):
   else:
     colour = list(map(lambda x : x*255.0/mmax, colour))
   return (colour, small_factor_counts[3], m)
-
 p_index = 1
 for p in primes:
   p_index += 1
@@ -146,13 +148,9 @@ for p in primes:
           (superresidue + 1) / 2
         )
 
-        if supersupersevens > 1 or supersuperresidue > 1:
-          raise NotImplementedError(
-            "I don't know what to do with %d, which is not smooth at the third step" % p
-          )
-      else:
-        supersupercolour = None
-
+        if supersupersevens > 1:
+          supersupersevens = 1
+      print(p, supersevens)
       if supercolour == [127.5, 127.5, 127.5]:
         supercolour = [0.0, 0.0, 0.0]
 
@@ -164,10 +162,10 @@ for p in primes:
     supersupercolour = None
 
   im = wavy(colour, direction, frequency, attenuation, sevens > 0, power_in_residue, supercolour, superfrequency, superattenuation, supersevens > 0, supersupercolour) 
-  print (".tileoverlay.tileoverlay-%d { background-position: 0%% %d%%; }") % (p, (-100*p_index))
+  #print (".tileoverlay.tileoverlay-%d { background-position: 0%% %d%%; }") % (p, (-100*p_index))
   im.save("c0r%02d.png" % p_index)
   im = wavy(colour, direction, frequency, 2*attenuation, sevens > 0, power_in_residue, supercolour, superfrequency, superattenuation, supersevens > 0, supersupercolour) 
-  print (".tileoverlay.tileoverlay-%d { background-position: -100%% %d%%; }") % (p*p, (-100*p_index))
+  #print (".tileoverlay.tileoverlay-%d { background-position: -100%% %d%%; }") % (p*p, (-100*p_index))
   im.save("c1r%02d.png" % p_index)
 
 

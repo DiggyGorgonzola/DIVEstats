@@ -38,3 +38,10 @@ function downloadSeedQuest() {
 
     URL.revokeObjectURL(url);
 }
+
+function copySeedsSeen() {
+
+    var q = game.tilesSeen;
+
+    navigator.clipboard.writeText("[" + q.join(", ") + "]");
+}

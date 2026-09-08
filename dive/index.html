@@ -24,7 +24,7 @@
       </div>
     </div>
     <p class="game-intro">Dive is a Threes-like game blending additive and multiplicative number theory.  This is based on Alex Fink's Dive (<strong>https://alexfink.github.io/dive</strong>).  
-Tiles merge with their <strong>divisors</strong>.</p>
+Tiles merge with their <strong>divisors</strong>.  Use <strong>WASD</strong> to move.</p>
     <form method="post" name="gameModeForm" id="gameModeForm">
       <p class="game-intro">Seeds are: 
         <select id="gameModeSelect" name="gameModeSelect" onchange="changeGameMode()">
@@ -41,7 +41,10 @@ Tiles merge with their <strong>divisors</strong>.</p>
       </p>
     </form>
     <div class="currently-unlocked"></div>
-    <h class="timer">0:00.000</h>
+    <div style="display: flex;justify-content: space-between;align-items: center;">
+      <h class="timer">0:00.000</h>
+      <button class="fancy-button" onclick="copySeedsSeen()" style="display:none;" id="copybutton">Copy Seeds Seen</button>
+    </div>
     <div class="game-container">
       <div class="announcer"></div>
       <div class="game-message">

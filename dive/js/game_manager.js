@@ -20,6 +20,7 @@ GameManager.prototype.restart = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
+  stopTimer();
   resetTimer()
   this.grid         = new Grid(this.size);
 
@@ -27,7 +28,7 @@ GameManager.prototype.setup = function () {
   this.gameMode     = +(select.options[select.selectedIndex].value);
   this.tileTypes = [2,3,5,7];
   if (this.gameMode & 1) {
-    this.tileTypes = [2];
+    this.tileTypes = [2]; 
     this.actuator.updateCurrentlyUnlocked(this.tileTypes);
     this.actuator.updateSeedQuest(this.tileTypes);
     this.tilesSeen = [2];

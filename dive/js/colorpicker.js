@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
             '--col1',
             picker1.value
         );
-        game.actuator.chart.data.datasets[0].borderColor = picker1.value;
-        game.actuator.chart.update();
+        window.game.actuator.chart.data.datasets[0].borderColor = picker1.value;
+        window.game.actuator.chart.update();
         localStorage.setItem("col1",JSON.stringify(picker1.value))
     });
     picker2.addEventListener('input', () => {
@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
             '--col3',
             picker2.value
         );
-        game.actuator.chart.data.datasets[0].backgroundColor = picker2.value;
-        game.actuator.chart.update();
+        window.game.actuator.chart.data.datasets[0].backgroundColor = picker2.value;
+        window.game.actuator.chart.update();
         localStorage.setItem("col2",JSON.stringify(picker2.value))
     });
     picker3.addEventListener('input', () => {

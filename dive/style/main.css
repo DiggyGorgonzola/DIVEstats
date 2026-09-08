@@ -101,7 +101,7 @@ h1.title {
   line-height: 42px;
   margin-top: 15px;
 }
-.fancy-button {
+.fancy-button{
       display: inline-block;
       background: var(--col3);
       border-radius: 6px;
@@ -112,6 +112,9 @@ h1.title {
       height: 40px;
       line-height: 42px;
       margin-top: 10px;
+}
+.fancy-button.hidden {
+  display:none;
 }
 
 .currently-unlocked {
@@ -334,7 +337,7 @@ hr {
       border-radius: 3px;
       padding: 0 20px;
       text-decoration: none;
-      color: var(--col4);
+      color: white;
       height: 40px;
       line-height: 42px;
       margin-left: 9px; }
@@ -1002,7 +1005,7 @@ hr {
         border-radius: 3px;
         padding: 0 20px;
         text-decoration: none;
-        color: var(--col4);
+        color: white;
         height: 40px;
         line-height: 42px;
         margin-left: 9px; }
