@@ -60,25 +60,27 @@ h1.title {
   100% {
     top: -50px;
     opacity: 0; } }
-@media (min-width: 768px) {
+
+@media (min-width: 1000px) {
     .color-picker {
           position:absolute;
   display:block;
-  padding:5px;
-  border-radius:5px;
   left:20px;
   top:50px;
   color:var(--col1);
   background-color:var(--col3);
+  display:block;
+  padding:5px;
+  border-radius:5px;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .color-picker {/* Mobile */
         width:500px;
         height:50px;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .style-text {
       opacity:0;
     }
@@ -208,6 +210,7 @@ hr {
   border-radius: 6px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  
 }
 .game-container {
   margin-top: 15px;

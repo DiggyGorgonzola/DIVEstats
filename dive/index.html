@@ -83,11 +83,13 @@ Tiles merge with their <strong>divisors</strong>.</p>
       </div>
     </div>
     <div class="graph-container">
-      <canvas class="graph"></canvas>
+      <div style="border-radius:6px;overflow:hidden;">      
+        <canvas class="graph"></canvas>
+      </div>
     </div>
     <button onclick="downloadCSV()" style="margin:10px;">Download CSV</button>
     <br><br>
-    <strong class="style-text">Style</strong>
+    <strong class="style-text" style="position:absolute;left:97.5px;top:15px;">Style</strong>
     <div class="color-picker">
       <input type="color" id="backgroundPicker1" style="margin:5px;width:50px;height:50px;border-radius:5px;">
       <input type="color" id="backgroundPicker2" style="margin:5px;width:50px;height:50px;border-radius:5px;">

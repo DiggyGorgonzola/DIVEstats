@@ -32,18 +32,35 @@ function HTMLActuator() {
     }
 };
   this.chart = new Chart(ctx, {
-  type: 'scatter',
+  type: 'line',
   data: {
     datasets: [{
       label: 'Points',
       data: this.score_points,
       backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--col3').trim(),
-      pointRadius: 7
+      borderColor: getComputedStyle(document.documentElement).getPropertyValue('--col1').trim(),
+      pointRadius: 7,
+      tension: .4,
+      borderWidth: 4,
     }]
   },
   plugins: [
     backgroundColorPlugin
-  ]
+  ],
+  options: {
+    scales: {
+        x: {
+            type: 'linear',
+            position: 'bottom',
+            ticks: {
+                display: false
+            },
+        },
+        y: {
+            beginAtZero: true
+        }
+    }
+}
 });
 
 }
@@ -231,7 +248,6 @@ HTMLActuator.prototype.message = function (game_over_data) {
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
   if ("tilesSeen" in game_over_data) {
     var seen = game_over_data.tilesSeen;
-    this.alltilesseen.add(seen);
     seen.sort(function (a,b){return a-b});
     for (var i = seen.length - 2; i >= 0; i--)
       if (seen[i] == seen[i+1])
@@ -277,7 +293,7 @@ HTMLActuator.prototype.addPoint = function (point) {
   this.score_points.push(point);
   localStorage.setItem("chartData", JSON.stringify(this.score_points));
   console.log(this.score_points)
-  this.chart.data.datasets[0].data.push(point);
+  this.chart.data.datasets[0].data = this.score_points;
   this.chart.update();
 }
 HTMLActuator.prototype.refreshChart = function () {
