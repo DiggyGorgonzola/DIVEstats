@@ -23,7 +23,7 @@
         <div class="best-container">0</div>
       </div>
     </div>
-    <p class="game-intro">Dive is a Threes-like game blending additive and multiplicative number theory.  
+    <p class="game-intro">Dive is a Threes-like game blending additive and multiplicative number theory.  This is based on Alex Fink's Dive (<strong>https://alexfink.github.io/dive</strong>).  
 Tiles merge with their <strong>divisors</strong>.</p>
     <form method="post" name="gameModeForm" id="gameModeForm">
       <p class="game-intro">Seeds are: 
@@ -41,7 +41,7 @@ Tiles merge with their <strong>divisors</strong>.</p>
       </p>
     </form>
     <div class="currently-unlocked"></div>
-
+    <h class="timer">0:00.000</h>
     <div class="game-container">
       <div class="announcer"></div>
       <div class="game-message">
@@ -82,14 +82,27 @@ Tiles merge with their <strong>divisors</strong>.</p>
 
       </div>
     </div>
+    <button class="fancy-button" id="eternal-restart">Restart</button>
+    <br><br>
+
+
     <div class="graph-container">
       <div style="border-radius:6px;overflow:hidden;">      
         <canvas class="graph"></canvas>
       </div>
     </div>
-    <button onclick="downloadCSV()" style="margin:10px;">Download CSV</button>
+    <button onclick="downloadCSV()"class="fancy-button">Download Graph Data</button>
     <br><br>
-    <strong class="style-text" style="position:absolute;left:97.5px;top:15px;">Style</strong>
+
+
+
+
+    <div class="seed-quest">
+    </div>
+    <button onclick="downloadSeedQuest()"class="fancy-button">Download Seed Quest Data</button>
+    <br><br>
+
+        <strong class="style-text" style="position:absolute;left:97.5px;top:15px;">Style</strong>
     <div class="color-picker">
       <input type="color" id="backgroundPicker1" style="margin:5px;width:50px;height:50px;border-radius:5px;">
       <input type="color" id="backgroundPicker2" style="margin:5px;width:50px;height:50px;border-radius:5px;">
@@ -106,5 +119,6 @@ Tiles merge with their <strong>divisors</strong>.</p>
   <script src="js/application.js"></script>
   <script src="js/colorpicker.js"></script>
   <script src="js/csv.js"></script>
+  <script src="js/timer.js"></script>
 </body>
 </html>

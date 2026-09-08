@@ -20,6 +20,7 @@ GameManager.prototype.restart = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
+  resetTimer()
   this.grid         = new Grid(this.size);
 
   var select = document.gameModeForm.gameModeSelect;
@@ -28,6 +29,7 @@ GameManager.prototype.setup = function () {
   if (this.gameMode & 1) {
     this.tileTypes = [2];
     this.actuator.updateCurrentlyUnlocked(this.tileTypes);
+    this.actuator.updateSeedQuest(this.tileTypes);
     this.tilesSeen = [2];
   } 
 
@@ -96,6 +98,11 @@ GameManager.prototype.moveTile = function (tile, cell) {
 
 // Move tiles on the grid in the specified direction
 GameManager.prototype.move = function (direction) {
+  if (!awa) {
+  startTime = performance.now();
+  Timer();
+  awa = true; 
+  }
   // 0: up, 1: right, 2:down, 3: left
   var self = this;
 
@@ -189,6 +196,7 @@ GameManager.prototype.move = function (direction) {
       }
       self.actuator.announce(list + verb);
       self.actuator.updateCurrentlyUnlocked(self.tileTypes);
+      self.actuator.updateSeedQuest(self.tileTypes);
     } // mode 1 only
         
     if ((self.gameMode & 3) == 3) {
@@ -224,16 +232,19 @@ GameManager.prototype.move = function (direction) {
         }
         self.actuator.announce(list + verb);
         self.actuator.updateCurrentlyUnlocked(self.tileTypes);
+        self.actuator.updateSeedQuest(self.tileTypes);
       }
         
       for(var i = eliminatedIndices.length - 1; i >= 0; i--)
         self.tileTypes.splice(eliminatedIndices[i],1);
       self.actuator.updateCurrentlyUnlocked(self.tileTypes);
+      self.actuator.updateSeedQuest(self.tileTypes);
     } // mode 3
 
     this.addRandomTile();
 
     if (!this.movesAvailable()) { // Game over!
+      stopTimer();
       if ((this.gameMode & 3) == 3)
         this.over = { tileTypes: this.tileTypes,
                       tilesSeen: this.tilesSeen };

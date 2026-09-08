@@ -5,19 +5,24 @@ function HTMLActuator() {
   this.messageContainer = document.querySelector(".game-message");
   this.announcer        = document.querySelector(".announcer");
   this.currentlyUnlocked= document.querySelector(".currently-unlocked");
+  this.seedQuest        = document.querySelector(".seed-quest");
   this.ScoreGraph       = document.querySelector(".graph");
   this.score = 0;
   this.score_points = JSON.parse(
     localStorage.getItem('chartData')
 ) || [];
   this.colors = []
-
-  this.alltilesseen = []
+  this.seedquest = JSON.parse(
+    localStorage.getItem('seedQuest')
+) || [];
+  this.seedquest.forEach(quest => {
+      quest.date = new Date(quest.date);
+  });
   this.overlayPrimes = [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 
     53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 
     131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
     199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277,
-    281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367];
+    281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367,373,379];
   const ctx = document.querySelector(".graph");
   const backgroundColorPlugin = {
     id: 'backgroundColor',
@@ -182,7 +187,11 @@ HTMLActuator.prototype.createMiniTile = function (value) {
   tileElement.classList.add("minitile");
   return tileElement;
 };
-
+HTMLActuator.prototype.createSillyTile = function (value) {
+  var q = this.createMiniTile(value.value);
+  q.title = `Got this seed on ${value.date}`;
+  return q;
+}
 HTMLActuator.prototype.addTile = function (tile) {
   var element = this.createTile(tile, true);
 
@@ -280,6 +289,25 @@ HTMLActuator.prototype.updateCurrentlyUnlocked = function (list) {
   var self = this;
   list.forEach(function (value) {
     self.currentlyUnlocked.appendChild(self.createMiniTile(value));
+  });
+}
+
+HTMLActuator.prototype.updateSeedQuest = function (list) {
+  var self = this;
+  list.forEach(function (value) {
+    console.log("HAI!");
+    if (!self.seedquest.some(quest => quest.value === value)) {
+      self.seedquest.push({value: value,date: new Date()})
+    }
+
+  })
+  this.seedquest = this.seedquest.toSorted((a,b) => (a.value - b.value));
+  localStorage.setItem("seedQuest", JSON.stringify(this.seedquest));
+  this.clearContainer(this.seedQuest);
+  this.seedquest.forEach(function (sq) {
+    if (sq.value > 0) {
+       self.seedQuest.appendChild(self.createSillyTile(sq));   
+    }
   });
 }
 

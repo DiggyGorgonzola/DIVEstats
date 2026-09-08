@@ -59,7 +59,9 @@ KeyboardInputManager.prototype.listen = function () {
   var retry = document.getElementsByClassName("retry-button")[0];
   retry.addEventListener("click", this.restart.bind(this));
   retry.addEventListener("touchstart", this.restart.bind(this));
-
+  var bwa = document.getElementById("eternal-restart");
+  bwa.addEventListener("click", this.restart.bind(this));
+  bwa.addEventListener("touchstart", this.restart.bind(this));
   // Listen to swipe events
   var touchStartClientX, touchStartClientY;
   var gameContainer = document.getElementsByClassName("game-container")[0];

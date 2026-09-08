@@ -5,7 +5,7 @@ primes = [13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
   73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139,
   149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 
   223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 
-  283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367] # 373 is a problem
+  283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367,373,379] # 373 is a problem
 all_primes = [11] + primes
 # The levels of green used in the tile backgrounds are [0, 6, 10, 13, 15].  
 # But Vynce thought the result was too green-dominated, so I've toned the greens down here.
@@ -109,7 +109,7 @@ def base_colour(m):
   if (mmax <= 0):
     colour = [127.5, 127.5, 127.5]
   else:
-    colour = map(lambda x : x*255.0/mmax, colour)
+    colour = list(map(lambda x : x*255.0/mmax, colour))
   return (colour, small_factor_counts[3], m)
 
 p_index = 1
@@ -123,24 +123,39 @@ for p in primes:
   power_in_residue = 1
   if residue > 1:
     if residue not in all_primes:
-      primes_dividing_residue = filter(lambda q: residue % q == 0, all_primes)
+      primes_dividing_residue = list(
+        filter(lambda q: residue % q == 0, all_primes)
+      )
+
       if len(primes_dividing_residue) > 1:
-        raise NotImplementedError, "I don't know what to do with %d, whose residue is composite" % p
-      power_in_residue = math.log(residue) / math.log(primes_dividing_residue[0])
-      residue = primes_dividing_residue[0]
-    supercolour, supersevens, superresidue = base_colour((residue+1)/2)
-    if superresidue > 1:
-      supersupercolour, supersupersevens, supersuperresidue = base_colour((superresidue+1)/2)
-      if supersupersevens > 1 or supersuperresidue > 1:
-        raise NotImplementedError, "I don't know what to do with %d, which is not smooth at the third step" % p
+        # Fallback for composite residues like 187 = 11 × 17
+        residue = primes_dividing_residue[0]
+        power_in_residue = 1
+      else:
+        power_in_residue = math.log(residue) / math.log(
+          primes_dividing_residue[0]
+        )
+        residue = primes_dividing_residue[0]
+
+      supercolour, supersevens, superresidue = base_colour(
+        (residue + 1) / 2
+      )
+
+      if superresidue > 1:
+        supersupercolour, supersupersevens, supersuperresidue = base_colour(
+          (superresidue + 1) / 2
+        )
+
+        if supersupersevens > 1 or supersuperresidue > 1:
+          raise NotImplementedError(
+            "I don't know what to do with %d, which is not smooth at the third step" % p
+          )
+      else:
+        supersupercolour = None
+
       if supercolour == [127.5, 127.5, 127.5]:
         supercolour = [0.0, 0.0, 0.0]
-    else:
-      supersupercolour = None
-    if colour == [127.5, 127.5, 127.5]:
-      colour = [0.0, 0.0, 0.0]
-    superfrequency = math.sqrt(residue)*2/3.0
-    superattenuation = max(1.0/math.sqrt(residue), 1/5.0)
+
   else:
     supercolour = None
     supersevens = 0
