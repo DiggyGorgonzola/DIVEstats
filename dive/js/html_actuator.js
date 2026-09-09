@@ -558,6 +558,6 @@ HTMLActuator.prototype.updateAo10 = function () {
   for (let i = 0; i <= this.score_points.length - 10; i++) {
     var a = this.score_points.slice(i, i + 10)
     const product = a.reduce((product, value) => product * Math.pow(value.y,1/10), 1)
-    this.ao10.push({x:i+9,y:product})
+    this.ao10.push({x:i+10,y:product})
   }
 }
