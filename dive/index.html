@@ -45,6 +45,7 @@ Tiles merge with their <strong>divisors</strong>.  Use <strong>WASD</strong> to 
       <h class="timer">0:00.000</h>
       <button class="fancy-button" onclick="copySeedsSeen()" style="display:none;" id="copybutton">Copy Seeds Seen</button>
     </div>
+    <h id="mps">0 mps</h>
     <div class="game-container">
       <div class="announcer"></div>
       <div class="game-message">
@@ -105,6 +106,8 @@ Tiles merge with their <strong>divisors</strong>.  Use <strong>WASD</strong> to 
     <button onclick="downloadSeedQuest()"class="fancy-button">Download Seed Quest Data</button>
     <br><br>
 
+    <button onclick="resetData()" class="fancy-button" style="color:red;">Clear ALL data</button>
+    <br><br>
         <strong class="style-text" style="position:absolute;left:97.5px;top:15px;">Style</strong>
     <div class="color-picker">
       <input type="color" id="backgroundPicker1" style="margin:5px;width:50px;height:50px;border-radius:5px;">

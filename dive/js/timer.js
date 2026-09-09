@@ -13,7 +13,9 @@ function stopTimer() {
 }
 function Timer() {
     var timer = document.querySelector(".timer");
+    var mps = document.getElementById("mps");
     var elapsed = performance.now() - startTime;
+    var m = Math.floor(100000 * game.moves / elapsed)/100 
 
     var minutes = Math.floor(elapsed / 60000);
     var seconds = Math.floor((elapsed % 60000) / 1000);
@@ -23,6 +25,7 @@ function Timer() {
         minutes + ":" +
         String(seconds).padStart(2, "0") + "." +
         String(milliseconds).padStart(3, "0");
+    mps.textContent = m + " mps";
     timer.style.color = "white";
     animationFrame = requestAnimationFrame(Timer); 
 }

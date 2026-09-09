@@ -19,11 +19,222 @@ function HTMLActuator() {
   this.seedquest.forEach(quest => {
       quest.date = new Date(quest.date);
   });
+  this.ao10 = []
+  this.updateAo10();
   this.overlayPrimes = [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 
     53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 
     131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
     199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277,
     281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367,373,379];
+  this.lookuptable = {
+  7: 0,
+  11: 1,
+  13: 2,
+  17: 3,
+  19: 4,
+  23: 5,
+  29: 6,
+  31: 7,
+  37: 8,
+  41: 9,
+  43: 10,
+  47: 11,
+  53: 12,
+  59: 13,
+  61: 14,
+  67: 15,
+  71: 16,
+  73: 17,
+  79: 18,
+  83: 19,
+  89: 20,
+  97: 21,
+  101: 22,
+  103: 23,
+  107: 24,
+  109: 25,
+  113: 26,
+  127: 27,
+  131: 28,
+  137: 29,
+  139: 30,
+  149: 31,
+  151: 32,
+  157: 33,
+  163: 34,
+  167: 35,
+  173: 36,
+  179: 37,
+  181: 38,
+  191: 39,
+  193: 40,
+  197: 41,
+  199: 42,
+  211: 43,
+  223: 44,
+  227: 45,
+  229: 46,
+  233: 47,
+  239: 48,
+  241: 49,
+  251: 50,
+  257: 51,
+  263: 52,
+  269: 53,
+  271: 54,
+  277: 55,
+  281: 56,
+  283: 57,
+  293: 58,
+  307: 59,
+  311: 60,
+  313: 61,
+  317: 62,
+  331: 63,
+  337: 64,
+  347: 65,
+  349: 66,
+  353: 67,
+  359: 68,
+  367: 69,
+  373: 70,
+  379: 71,
+  383: 72,
+  389: 73,
+  397: 74,
+  401: 75,
+  409: 76,
+  419: 77,
+  421: 78,
+  431: 79,
+  433: 80,
+  439: 81,
+  443: 82,
+  449: 83,
+  457: 84,
+  461: 85,
+  463: 86,
+  467: 87,
+  479: 88,
+  487: 89,
+  491: 90,
+  499: 91,
+  503: 92,
+  509: 93,
+  521: 94,
+  523: 95,
+  541: 96,
+  547: 97,
+  557: 98,
+  563: 99,
+  569: 100,
+  571: 101,
+  577: 102,
+  587: 103,
+  593: 104,
+  599: 105,
+  601: 106,
+  607: 107,
+  613: 108,
+  617: 109,
+  619: 110,
+  631: 111,
+  641: 112,
+  643: 113,
+  647: 114,
+  653: 115,
+  659: 116,
+  661: 117,
+  673: 118,
+  677: 119,
+  683: 120,
+  691: 121,
+  701: 122,
+  709: 123,
+  719: 124,
+  727: 125,
+  733: 126,
+  739: 127,
+  743: 128,
+  751: 129,
+  757: 130,
+  761: 131,
+  769: 132,
+  773: 133,
+  787: 134,
+  797: 135,
+  809: 136,
+  811: 137,
+  821: 138,
+  823: 139,
+  827: 140,
+  829: 141,
+  839: 142,
+  853: 143,
+  857: 144,
+  859: 145,
+  863: 146,
+  877: 147,
+  881: 148,
+  883: 149,
+  887: 150,
+  907: 151,
+  911: 152,
+  919: 153,
+  929: 154,
+  937: 155,
+  941: 156,
+  947: 157,
+  953: 158,
+  967: 159,
+  971: 160,
+  977: 161,
+  983: 162,
+  991: 163,
+  997: 164,
+  1009: 165,
+  1013: 166,
+  1019: 167,
+  1021: 168,
+  1031: 169,
+  1033: 170,
+  1039: 171,
+  1049: 172,
+  1051: 173,
+  1061: 174,
+  1063: 175,
+  1069: 176,
+  1087: 177,
+  1091: 178,
+  1093: 179,
+  1097: 180,
+  1103: 181,
+  1109: 182,
+  1117: 183,
+  1123: 184,
+  1129: 185,
+  1151: 186,
+  1153: 187,
+  1163: 188,
+  1171: 189,
+  1181: 190,
+  1187: 191,
+  1193: 192,
+  1201: 193,
+  1213: 194,
+  1217: 195,
+  1223: 196,
+  1229: 197,
+  1231: 198,
+  1237: 199,
+  1249: 200,
+  1259: 201,
+  1277: 202,
+  1279: 203,
+  1283: 204,
+  1289: 205,
+  1291: 206
+};
   const ctx = document.querySelector(".graph");
   const backgroundColorPlugin = {
     id: 'backgroundColor',
@@ -45,9 +256,17 @@ function HTMLActuator() {
       data: this.score_points,
       backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--col1').trim(),
       borderColor: getComputedStyle(document.documentElement).getPropertyValue('--col1').trim(),
-      pointRadius: 4,
+      pointRadius: 2,
       tension: .4,
-      borderWidth: 4,
+      borderWidth: 2,
+    },{
+      label: 'Geometric Mean of 10',
+      data: this.ao10,
+      backgroundColor: "lime",
+      borderColor: "lime",
+      pointRadius: 2,
+      tension: .4,
+      borderWidth: 2,
     }]
   },
   plugins: [
@@ -171,10 +390,13 @@ HTMLActuator.prototype.createTile = function (tile, animate) {
       var tileOverlay = document.createElement("div");
       var tileOverlayClasses = animatedClasses.slice(0);
       tileOverlayClasses.push("tileoverlay");
-      if (tile.value % (p*p) == 0)
-        tileOverlayClasses.push("tileoverlay-" + (p*p));
-      else
-        tileOverlayClasses.push("tileoverlay-" + p);
+      const index = self.lookuptable[p];
+
+    if (tile.value % (p * p) === 0) {
+        tileOverlay.style.backgroundPosition = `-100% ${-index * 100}%`
+    } else if (tile.value % p === 0) {
+        tileOverlay.style.backgroundPosition = `0% ${-index * 100}%`
+    }
       self.applyClasses(tileOverlay, tileOverlayClasses);
       element.appendChild(tileOverlay);
     }
@@ -322,11 +544,20 @@ HTMLActuator.prototype.clearCurrentlyUnlocked = function () {
 HTMLActuator.prototype.addPoint = function (point) {
   this.score_points.push(point);
   localStorage.setItem("chartData", JSON.stringify(this.score_points));
-  console.log(this.score_points)
   this.chart.data.datasets[0].data = this.score_points;
   this.chart.update();
 }
 HTMLActuator.prototype.refreshChart = function () {
   this.chart.data.datasets[0].data = this.score_points;
   this.chart.update();
+}
+
+HTMLActuator.prototype.updateAo10 = function () {
+  console.log(this.score_points)
+  this.ao10 = []
+  for (let i = 0; i <= this.score_points.length - 10; i++) {
+    var a = this.score_points.slice(i, i + 10)
+    const product = a.reduce((product, value) => product * Math.pow(value.y,1/10), 1)
+    this.ao10.push({x:i+9,y:product})
+  }
 }

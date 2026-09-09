@@ -5,6 +5,7 @@ function GameManager(size, InputManager, Actuator, ScoreManager) {
   this.actuator     = new Actuator;
 
   this.startTiles   = 2;
+  this.moves = 0;
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
@@ -20,6 +21,8 @@ GameManager.prototype.restart = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
+  this.moves = 0;
+  this.actuator.updateAo10();
   stopTimer();
   resetTimer()
   this.actuator.copyButton.style.display = "none";
@@ -29,10 +32,11 @@ GameManager.prototype.setup = function () {
   this.gameMode     = +(select.options[select.selectedIndex].value);
   this.tileTypes = [2,3,5,7];
   if (this.gameMode & 1) {
-    this.tileTypes = [2]; 
+    var start = 2
+    this.tileTypes = [start]; 
     this.actuator.updateCurrentlyUnlocked(this.tileTypes);
     this.actuator.updateSeedQuest(this.tileTypes);
-    this.tilesSeen = [2];
+    this.tilesSeen = [start];
   } 
 
   this.score        = 0;
@@ -176,6 +180,7 @@ GameManager.prototype.move = function (direction) {
   }
 
   if (moved) {
+    this.moves++;
     if (!awa) {
     startTime = performance.now();
     Timer();

@@ -45,3 +45,14 @@ function copySeedsSeen() {
 
     navigator.clipboard.writeText("[" + q.join(", ") + "]");
 }
+
+function resetData() {
+    game.actuator.score_points = []
+    game.actuator.seedquest = [{date:new Date(), value:2}]
+    localStorage.setItem("chartData", JSON.stringify(game.actuator.score_points));
+    localStorage.setItem("seedQuest", JSON.stringify(game.actuator.seedquest));
+
+    game.actuator.refreshChart()
+    game.actuator.updateAo10()
+    game.actuator.clearContainer(document.querySelector(".seed-quest"));
+}
